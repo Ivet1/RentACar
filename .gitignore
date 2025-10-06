@@ -1,0 +1,49 @@
+# Build folders
+bin/
+obj/
+Debug/
+Release/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider IDE
+.idea/
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# ASP.NET Core specific
+wwwroot/lib/
+appsettings.*.json
+launchSettings.json
+App_Data/
+*.db
+
+# Logs and temp
+*.log
+*.tmp
+*.cache
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Other
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.tlog
+*.lastbuildstate

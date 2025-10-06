@@ -1,0 +1,41 @@
+﻿@using RentAcar.Models
+@model CarViewModel
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<h2>Car Details</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Brand:</dt>
+        <dd class="col-sm-10">@Model.Brand</dd>
+
+        <dt class="col-sm-2">Model:</dt>
+        <dd class="col-sm-10">@Model.Model</dd>
+
+        <dt class="col-sm-2">Year:</dt>
+        <dd class="col-sm-10">@Model.Year</dd>
+
+        <dt class="col-sm-2">Seats:</dt>
+        <dd class="col-sm-10">@Model.Seats</dd>
+
+        <dt class="col-sm-2">Description:</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+
+        <dt class="col-sm-2">Price per day:</dt>
+        <dd class="col-sm-10">$@Model.PricePerDay</dd>
+
+        <dt class="col-sm-2">Available:</dt>
+        <dd class="col-sm-10">@(Model.IsAvailable ? "Yes" : "No")</dd>
+    </dl>
+
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    }
+</div>

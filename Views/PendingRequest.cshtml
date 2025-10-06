@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RentACar.Models.RentalRequest>
+
+<h1>Pending Rental Requests</h1>
+
+@foreach (var request in Model)
+{
+    <div>
+        <h3>@request.Car.Brand @request.Car.Model</h3>
+        <p>Requested by: @request.User.UserName</p>
+        <p>From: @request.StartDate.ToShortDateString() To: @request.EndDate.ToShortDateString()</p>
+
+        <form asp-action="Approve" method="post">
+            <input type="hidden" name="id" value="@request.Id" />
+            <button type="submit">Approve</button>
+        </form>
+
+        <form asp-action="Reject" method="post">
+            <input type="hidden" name="id" value="@request.Id" />
+            <button type="submit">Reject</button>
+        </form>
+    </div>
+}

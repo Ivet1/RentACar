@@ -1,0 +1,31 @@
+﻿@model IEnumerable<RentACar.Models.Car>
+
+<h1>Search Available Cars</h1>
+
+<form method="get" action="@Url.Action("AvailableCars", "RentalRequests")">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required />
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required />
+
+    <button type="submit">Search</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Available Cars</h2>
+    @foreach (var car in Model)
+    {
+        <div>
+            <h3>@car.Brand @car.Model</h3>
+            <p>Seats: @car.Seats</p>
+            <p>Price Per Day: @car.PricePerDay</p>
+            <a href="@Url.Action("CreateRequest", "RentalRequests", new { carId = car.Id })">Request Rental</a>
+        </div>
+    }
+}
+else
+{
+    <p>No cars available for the selected dates.</p>
+}

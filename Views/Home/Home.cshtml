@@ -1,0 +1,83 @@
+﻿@model IEnumerable<RentACar.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<!-- Navbar with Login, Register, and Home buttons -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">Rent A Car</span>
+        <div class="d-flex">
+            <!-- Home Button -->
+            <a href="@Url.Action("Home", "Home")" class="btn btn-info mx-2">Home</a>
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Login", "Account")" class="btn btn-primary mx-2">Login</a>
+                <a href="@Url.Action("Register", "Account")" class="btn btn-secondary">Register</a>
+            }
+            else
+            {
+                <a href="#" onclick="document.getElementById('logoutForm').submit();" class="btn btn-danger">Logout</a>
+                <form id="logoutForm" action="@Url.Action("Logout", "Account")" method="post" style="display:none;">
+                    @Html.AntiForgeryToken()
+                </form>
+            }
+        </div>
+    </div>
+</nav>
+
+<h1>Cars</h1>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+{
+    <p>
+        <a href="@Url.Action("AvailableCars", "RentalRequests")" class="btn btn-success">View Available Cars</a>
+    </p>
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a href="@Url.Action("Create", "Cars")" class="btn btn-primary">Create New Car</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Seats</th>
+            <th>Price Per Day</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.Seats</td>
+                <td>@car.PricePerDay</td>
+                <td>@(car.IsAvailable ? "Yes" : "No")</td>
+                <td>
+                    <a href="@Url.Action("Details", "Cars", new { id = car.Id })" class="btn btn-info">Details</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a href="@Url.Action("Edit", "Cars", new { id = car.Id })" class="btn btn-warning">Edit</a>
+                        <form action="@Url.Action("Delete", "Cars", new { id = car.Id })" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this car?');">Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

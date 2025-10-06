@@ -1,0 +1,21 @@
+﻿@using RentAcar.Models
+@model CarViewModel
+<form asp-action="Create" method="post">
+    <label asp-for="Brand"></label>
+    <input asp-for="Brand" class="form-control" />
+    <span asp-validation-for="Brand" class="text-danger"></span>
+
+    <label asp-for="Model"></label>
+    <input asp-for="Model" class="form-control" />
+    <span asp-validation-for="Model" class="text-danger"></span>
+
+    <label asp-for="Year"></label>
+    <input asp-for="Year" class="form-control" />
+    <span asp-validation-for="Year" class="text-danger"></span>
+
+    <label asp-for="Seats"></label>
+    <input asp-for="Seats" class="form-control" />
+    <span asp-validation-for="Seats" class="text-danger"></span>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
